@@ -1,0 +1,15 @@
+# Version: 0.0.1
+FROM fotengauer/altlinux-p8
+MAINTAINER Pavel Vainerman <pv@etersoft.ru>
+RUN apt-get update \
+ && apt-get install -y apt-repo \
+ && apt-repo add http://ftp.etersoft.ru/pub/Etersoft/LINUX@Etersoft/p8 branch/x86_64 addon \
+ && apt-repo add http://ftp.etersoft.ru/pub/Etersoft/LINUX@Etersoft/p8 branch/noarch addon
+
+RUN apt-get update \
+ && apt-get -y install libsobjectizer \
+ && apt-get clean
+
+ADD ./elevator-control /usr/local/bin/
+
+CMD ["/bin/bash"]
